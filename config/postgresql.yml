@@ -1,0 +1,24 @@
+Default: &defaults
+  user: ipredictthat
+  password: ipredictthat
+  host: localhost
+  port: 5432
+  database: ipredictthat
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: ipredictthat_test
+  <<: *defaults
+
+Staging:
+  database: ipredictthat_staging
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: ipredictthat_production
+  poolsize: 100
+  <<: *defaults

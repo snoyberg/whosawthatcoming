@@ -1,0 +1,7 @@
+<h1>Prediction by: #{predictionName predict}
+<h2>Predicted on: #{show $ predictionCreated predict}
+<blockquote>#{predictionContent predict}
+$with url <- PublicR $ predictionPublic predict
+    <p>
+        Note: your public page is available at: #
+        <a href=@{url}>@{url}
