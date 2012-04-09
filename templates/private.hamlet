@@ -5,3 +5,5 @@ $with url <- PublicR $ predictionPublic predict
     <p>
         Note: your public page is available at: #
         <a href=@{url}>@{url}
+
+<h6>New to the site? Learn more on the <a href=@{HomeR}>homepage</a>.

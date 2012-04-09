@@ -4,3 +4,5 @@
 <pre>#{md5}
 
 <p>You will need to wait until #{predictionName predict} makes this prediction public to see its content.
+
+<h6>New to the site? Learn more on the <a href=@{HomeR}>homepage</a>.
