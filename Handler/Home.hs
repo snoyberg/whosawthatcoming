@@ -9,7 +9,8 @@ import Control.Monad (replicateM)
 import Control.Monad.Trans.State
 import Data.Time (getCurrentTime)
 import Crypto.Hash.SHA512 (hash)
-import qualified Data.ByteString.Base64 as B64
+import qualified Data.ByteString as S
+import Data.Bits (shiftR, (.&.))
 
 predictForm :: Form Prediction
 predictForm token = do
@@ -83,7 +84,26 @@ getPublicR :: Text -> Handler RepHtml
 getPublicR public = do
     Entity _ predict <- runDB $ getBy404 $ UniquePublic public
     let Textarea raw = predictionContent predict
-    let sha512 = decodeUtf8 $ B64.encode $ hash $ encodeUtf8 raw
+    let sha512 = decodeUtf8 $ toHex $ hash $ encodeUtf8 raw
     defaultLayout $ do
         setTitle "Public prediction page"
         $(widgetFile "public")
+
+toHex :: S.ByteString -> S.ByteString
+toHex bs0 =
+    fst $ S.unfoldrN (S.length bs0 * 2) go (Left bs0)
+  where
+    go (Left bs) =
+        case S.uncons bs of
+            Nothing -> Nothing
+            Just (w, bs') ->
+                let w1 = w `shiftR` 4
+                    w2 = w .&. 15
+                    c1 = toC w1
+                    c2 = toC w2
+                 in Just (c1, Right (c2, bs'))
+    go (Right (c, bs)) = Just (c, Left bs)
+
+    toC w
+        | w < 10 = w + 48
+        | otherwise = w + 87

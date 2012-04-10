@@ -107,7 +107,6 @@ executable         whosawthatcoming
                  , transformers
                  , time
                  , cryptohash
-                 , base64-bytestring
 test-suite integration-tests
     type: exitcode-stdio-1.0
     main-is:        main.hs
