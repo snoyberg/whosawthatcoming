@@ -1,5 +1,5 @@
 {-# LANGUAGE PackageImports #-}
-import "ipredictthat" Application (getApplicationDev)
+import "whosawthatcoming" Application (getApplicationDev)
 import Network.Wai.Handler.Warp
     (runSettings, defaultSettings, settingsPort)
 import Control.Concurrent (forkIO)

@@ -1,24 +1,24 @@
 Default: &defaults
-  user: ipredictthat
-  password: ipredictthat
+  user: whosawthatcoming
+  password: whosawthatcoming
   host: localhost
   port: 5432
-  database: ipredictthat
+  database: whosawthatcoming
   poolsize: 10
 
 Development:
   <<: *defaults
 
 Testing:
-  database: ipredictthat_test
+  database: whosawthatcoming_test
   <<: *defaults
 
 Staging:
-  database: ipredictthat_staging
+  database: whosawthatcoming_staging
   poolsize: 100
   <<: *defaults
 
 Production:
-  database: ipredictthat_production
+  database: whosawthatcoming_production
   poolsize: 100
   <<: *defaults

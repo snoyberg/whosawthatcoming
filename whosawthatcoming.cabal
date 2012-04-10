@@ -1,4 +1,4 @@
-name:              ipredictthat
+name:              whosawthatcoming
 version:           0.0.0
 license:           BSD3
 license-file:      LICENSE
@@ -10,7 +10,7 @@ category:          Web
 stability:         Experimental
 cabal-version:     >= 1.6
 build-type:        Simple
-homepage:          http://ipredictthat.yesodweb.com/
+homepage:          http://whosawthatcoming.yesodweb.com/
 
 Flag dev
     Description:   Turn on development settings, like auto-reload templates.
@@ -50,7 +50,7 @@ library
                 EmptyDataDecls
                 NoMonomorphismRestriction
 
-executable         ipredictthat
+executable         whosawthatcoming
     if flag(library-only)
         Buildable: False
 
