@@ -14,7 +14,7 @@
             <li>Bob is absolutely certain that Alice will choose green, but he knows if he tells her what he thinks, it will influence her decision.
             <li>Bob comes to whosawthatcoming.com and enters the prediction "Alice will choose green for the company logo." No login is required, and Bob is immediately forwarded to the prediction's <b>private page</b>.
             <li>Bob saves a link to the private page for later, and then sends Alice a link to the <b>public page</b>, explaining he's made a prediction of which color she'll choose.
-            <li>Alice visits the private page, and sees a message telling her the date that Bob made the prediction, and giving an <b>MD5 hash</b> of the prediction's contents. This is for verification later, in case Alice doesn't trust whosawthatcoming.com.
+            <li>Alice visits the private page, and sees a message telling her the date that Bob made the prediction, and giving an <b>SHA512 hash</b> of the prediction's contents. This is for verification later, in case Alice doesn't trust whosawthatcoming.com.
             <li>Alice eventually chooses green, and Bob triumphantly sends her a link to the prediction's private page. Bob now basks in the glory of being proven right.
 
 <h2>FAQ
@@ -28,8 +28,8 @@
         <dt>Since I can just enter anyone's name in the name field, isn't this whole site inherently insecure?
         <dd>To some extent, yes. The real answer is that you should <b>never</b> trust the identity of someone signing a prediction, and should verify who made the prediction by some other means (e.g., you got it in an email from the person, or they posted a link to the public page on their blog).
 
-        <dt>What's this MD5 business?
-        <dd>When you apply MD5 to some data, you get back a much smaller representation of the same data. It's impossible to recreate the original message, but the original message will always map to the same output. That means you can give out the hash of your prediction, and then later someone else can verify that the prediction you give them matches the hash value they got originally.
+        <dt>What's this SHA512 business?
+        <dd>When you apply SHA512 to some data, you get back a much smaller representation of the same data. It's impossible to recreate the original message, but the original message will always map to the same output. That means you can give out the hash of your prediction, and then later someone else can verify that the prediction you give them matches the hash value they got originally.
 
         <dt>Isn't this all a bit overkill?
         <dd>Yes.

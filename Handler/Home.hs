@@ -8,7 +8,7 @@ import Data.Text.Encoding (encodeUtf8, decodeUtf8)
 import Control.Monad (replicateM)
 import Control.Monad.Trans.State
 import Data.Time (getCurrentTime)
-import Crypto.Hash.MD5 (hash)
+import Crypto.Hash.SHA512 (hash)
 import qualified Data.ByteString.Base64 as B64
 
 predictForm :: Form Prediction
@@ -83,7 +83,7 @@ getPublicR :: Text -> Handler RepHtml
 getPublicR public = do
     Entity _ predict <- runDB $ getBy404 $ UniquePublic public
     let Textarea raw = predictionContent predict
-    let md5 = decodeUtf8 $ B64.encode $ hash $ encodeUtf8 raw
+    let sha512 = decodeUtf8 $ B64.encode $ hash $ encodeUtf8 raw
     defaultLayout $ do
         setTitle "Public prediction page"
         $(widgetFile "public")

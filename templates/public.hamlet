@@ -1,7 +1,7 @@
 <h1>Public prediction page
-<p>On #{show $ predictionCreated predict}, #{predictionName predict} made a prediction. Following is the MD5 hash of this prediction for verification:
+<p>On #{show $ predictionCreated predict}, #{predictionName predict} made a prediction. Following is the SHA512 hash of this prediction for verification:
 
-<pre>#{md5}
+<pre>#{sha512}
 
 <p>You will need to wait until #{predictionName predict} makes this prediction public to see its content.
 
