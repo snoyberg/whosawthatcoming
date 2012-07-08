@@ -1,0 +1,5 @@
+exec: ../dist/build/whosawthatcoming/whosawthatcoming
+args:
+    - production
+host: www.whosawthatcoming.com
+postgres: true
