@@ -5,6 +5,7 @@
 /robots.txt RobotsR GET
 
 / HomeR GET POST
+/mypredictions MyPredictionsR GET
 
 /private/#Text PrivateR GET
 /public/#Text PublicR GET

@@ -2,6 +2,7 @@ Default: &defaults
   host: "*4"
   port: 3000
   copyright: Insert copyright statement here
+  approot: "http://localhost:3000"
   #analytics: UA-YOURCODE
 
 Development:
@@ -16,5 +17,5 @@ Staging:
 Production:
   host: "*4" # any IPv4 host
   port: 3000
-  approot: "http://whosawthatcoming.com"
+  approot: "http://www.whosawthatcoming.com"
   <<: *defaults

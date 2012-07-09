@@ -14,6 +14,7 @@ import Data.Bits (shiftR, (.&.))
 
 predictForm :: Form Prediction
 predictForm token = do
+    maid <- fmap entityKey <$> lift maybeAuth
     (nameRes, nameView) <- mreq textField "Name"
         { fsAttrs = [("placeholder", "your name"), ("class", "name")]
         } Nothing
@@ -30,7 +31,7 @@ predictForm token = do
                                    $ runState
                                    $ (,) <$> go <*> go
                 now <- liftIO getCurrentTime
-                return ([], FormSuccess $ Prediction name content public private now)
+                return ([], FormSuccess $ Prediction name content public private now maid)
             FormFailure errs -> return (errs, FormFailure errs)
             FormMissing -> return ([], FormMissing)
     let widget = [whamlet|
@@ -60,6 +61,7 @@ $if not $ null errs
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler RepHtml
 getHomeR = do
+    muser <- maybeAuth
     ((result, formWidget), _) <- runFormPost predictForm
     case result of
         FormSuccess predict -> do
@@ -107,3 +109,11 @@ toHex bs0 =
     toC w
         | w < 10 = w + 48
         | otherwise = w + 87
+
+getMyPredictionsR :: Handler RepHtml
+getMyPredictionsR = do
+    Entity uid user <- requireAuth
+    predictions <- map entityVal <$> runDB (selectList [PredictionUser ==. Just uid] [Desc PredictionCreated])
+    defaultLayout $ do
+        setTitle "My Predictions"
+        $(widgetFile "my-predictions")

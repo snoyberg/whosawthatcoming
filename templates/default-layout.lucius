@@ -2,3 +2,8 @@ header {
     margin: 1em 0;
     text-align: center;
 }
+
+#message {
+    color: #900;
+    text-align: center;
+}

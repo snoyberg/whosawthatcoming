@@ -14,6 +14,7 @@ Prediction
     private Text
     public Text
     created UTCTime
+    user UserId Maybe
     UniquePrivate private
     UniquePublic public
 

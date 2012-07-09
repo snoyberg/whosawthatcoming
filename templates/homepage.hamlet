@@ -1,5 +1,18 @@
 ^{formWidget}
 
+<div .row>
+    <div .span8 .offset2>
+        $maybe Entity _ user <- muser
+            <p>
+                Logged in as
+                <i>#{userIdent user}#
+                .
+                <a href=@{MyPredictionsR}>View your predictions
+                <a href=@{AuthR LogoutR}>Logout
+        $nothing
+            <p>
+                <a href=@{AuthR LoginR}>Log in to track your predictions.
+
 <h2>What is this?
 
 <div .row>
