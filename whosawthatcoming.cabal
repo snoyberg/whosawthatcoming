@@ -77,30 +77,31 @@ executable         whosawthatcoming
                 NoMonomorphismRestriction
 
     build-depends: base                          >= 4          && < 5
-                 , yesod                         >= 1.1        && < 1.2
-                 , yesod-core                    >= 1.1        && < 1.2
-                 , yesod-auth                    >= 1.1        && < 1.2
-                 , yesod-static                  >= 1.1        && < 1.2
-                 , yesod-default                 >= 1.1        && < 1.2
-                 , yesod-form                    >= 1.1        && < 1.2
-                 , yesod-test                    >= 0.3        && < 0.4
-                 , clientsession                 >= 0.8        && < 0.9
-                 , bytestring                    >= 0.9        && < 0.10
-                 , text                          >= 0.11       && < 0.12
-                 , persistent                    >= 1.0        && < 1.1
-                 , persistent-postgresql         >= 1.0        && < 1.1
+                 , yesod                         >= 1.1        && < 1.3
+                 , yesod-core                    >= 1.1        && < 1.3
+                 , yesod-auth                    >= 1.1        && < 1.4
+                 , yesod-static                  >= 1.1        && < 1.3
+                 , yesod-default                 >= 1.1        && < 1.3
+                 , yesod-form                    >= 1.1        && < 1.4
+                 , yesod-test                    >= 0.3        && < 1.3
+                 , clientsession                 >= 0.8        && < 0.10
+                 , bytestring                    >= 0.9
+                 , text                          >= 0.11       && < 1.2
+                 , persistent                    >= 1.0        && < 1.4
+                 , persistent-postgresql         >= 1.0        && < 1.4
                  , template-haskell
-                 , hamlet                        >= 1.1        && < 1.2
-                 , shakespeare-css               >= 1.0        && < 1.1
-                 , shakespeare-js                >= 1.0        && < 1.1
-                 , shakespeare-text              >= 1.0        && < 1.1
+                 , shakespeare
+                 , hamlet                        >= 1.1        && < 1.3
+                 , shakespeare-css
+                 , shakespeare-js
+                 , shakespeare-text
                  , hjsmin
                  , monad-control                 >= 0.3        && < 0.4
-                 , wai-extra                     >= 1.3        && < 1.4
+                 , wai-extra                     >= 1.3        && < 2.2
                  , yaml                          >= 0.8        && < 0.9
-                 , http-conduit                  >= 1.5.0.2    && < 1.6
-                 , directory                     >= 1.1        && < 1.2
-                 , warp                          >= 1.3        && < 1.4
+                 , http-conduit                  >= 1.5.0.2    && < 2.2
+                 , directory                     >= 1.1        && < 1.3
+                 , warp                          >= 1.3        && < 2.2
 
                  , yesod-test
                  , random
@@ -109,6 +110,7 @@ executable         whosawthatcoming
                  , cryptohash
                  , conduit
                  , data-default
+                 , monad-logger
 test-suite integration-tests
     type: exitcode-stdio-1.0
     main-is:        main.hs

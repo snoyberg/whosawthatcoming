@@ -1,0 +1,7 @@
+$if null predictions
+    <p>You have made no predictions
+$else
+    <ul>
+        $forall p <- predictions
+            <li>
+                <a href=@{PrivateR (predictionPrivate p)}>#{predictionName p}
