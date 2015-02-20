@@ -3,7 +3,9 @@ module Model where
 
 import Prelude
 import Yesod
-import Data.Text (Text)
+import Data.Text (Text, append)
+import qualified Data.Text as T
+import Data.Char (isUpper)
 import Database.Persist.Quasi
 import Data.Time (UTCTime)
 import Data.Typeable (Typeable)
@@ -13,4 +15,9 @@ import Data.Typeable (Typeable)
 -- at:
 -- http://www.yesodweb.com/book/persistent/
 share [mkPersist sqlSettings, mkMigrate "migrateAll"]
-    $(persistFileWith lowerCaseSettings "config/models")
+    $(persistFileWith upperCaseSettings
+        { psToDBName = \t ->
+            if not (T.null t) && isUpper (T.head t)
+                then "WhoSawThatComing__" `append` psToDBName upperCaseSettings t
+                else psToDBName upperCaseSettings t
+        } "config/models")
