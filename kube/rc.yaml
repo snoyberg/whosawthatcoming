@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: whosawthatcoming
+    labels:
+        name: whosawthatcoming
+spec:
+  replicas: 1
+  selector:
+    name: whosawthatcoming
+  template:
+    metadata:
+        labels:
+            name: whosawthatcoming
+    spec:
+        volumes:
+        - name: postgresql-volume
+          secret:
+              secretName: whosawthatcoming-postgresql-secret
+        containers:
+        - name: whosawthatcoming
+          image: snoyberg/whosawthatcoming
+          imagePullPolicy: Always
+          command: ["whosawthatcoming", "production"]
+          workingDir: /app
+          ports:
+          - containerPort: 3005
+            hostPort: 3005
+          env:
+          - name: PORT
+            value: "3005"
+          - name: APPROOT
+            value: "http://www.whosawthatcoming.com"
+          livenessProbe:
+              httpGet:
+                  path: /
+                  port: 3005
+          volumeMounts:
+          - name: postgresql-volume
+            readOnly: true
+            mountPath: /app/config/db
