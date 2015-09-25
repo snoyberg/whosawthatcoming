@@ -1,3 +1,4 @@
+{-# LANGUAGE ViewPatterns #-}
 module Foundation
     ( App (..)
     , Route (..)
@@ -117,13 +118,15 @@ instance Yesod App where
 
 -- How to run database actions.
 instance YesodPersist App where
-    type YesodPersistBackend App = SqlPersist
+    type YesodPersistBackend App = SqlBackend
     runDB f = do
         master <- getYesod
         Database.Persist.runPool
             (persistConfig master)
             f
             (connPool master)
+instance YesodAuthPersist App where
+    type AuthEntity App = User
 
 instance YesodAuth App where
     type AuthId App = UserId

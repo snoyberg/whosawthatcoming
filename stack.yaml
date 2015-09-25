@@ -1,0 +1,9 @@
+resolver: lts-3.6
+
+image:
+  container:
+    name: snoyberg/whosawthatcoming
+    base: fpco/stack-run
+    add:
+        static: /app/static
+        config: /app/config
