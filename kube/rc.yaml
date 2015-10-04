@@ -5,7 +5,7 @@ metadata:
     labels:
         name: whosawthatcoming
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     name: whosawthatcoming
   template:
@@ -20,6 +20,9 @@ spec:
         containers:
         - name: whosawthatcoming
           image: snoyberg/whosawthatcoming
+          resources:
+            limits:
+              memory: 800Mi
           imagePullPolicy: Always
           command: ["whosawthatcoming", "production"]
           workingDir: /app
