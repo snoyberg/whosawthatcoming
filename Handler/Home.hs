@@ -11,6 +11,7 @@ import Data.Time (getCurrentTime)
 import Crypto.Hash.SHA512 (hash)
 import qualified Data.ByteString as S
 import Data.Bits (shiftR, (.&.))
+import qualified Data.Text as T
 
 predictForm :: Form Prediction
 predictForm token = do
@@ -117,3 +118,9 @@ getMyPredictionsR = do
     defaultLayout $ do
         setTitle "My Predictions"
         $(widgetFile "my-predictions")
+  where
+    predictionSummary = ellipsis 100 . unTextarea . predictionContent
+
+    ellipsis l t
+        | T.length t > l = T.take (T.length t - 3) t `T.append` "..."
+        | otherwise = t

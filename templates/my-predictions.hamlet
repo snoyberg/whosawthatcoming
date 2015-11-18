@@ -4,4 +4,4 @@ $else
     <ul>
         $forall p <- predictions
             <li>
-                <a href=@{PrivateR (predictionPrivate p)}>#{predictionName p}
+                <a href=@{PrivateR (predictionPrivate p)}>#{predictionSummary p}
