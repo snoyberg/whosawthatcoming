@@ -122,5 +122,5 @@ getMyPredictionsR = do
     predictionSummary = ellipsis 100 . unTextarea . predictionContent
 
     ellipsis l t
-        | T.length t > l = T.take (T.length t - 3) t `T.append` "..."
+        | T.length t > l = T.take (l - 3) t `T.append` "..."
         | otherwise = t
