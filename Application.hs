@@ -20,6 +20,8 @@ import qualified Database.Persist
 import Database.Persist.Sql (runMigration)
 import Network.HTTP.Conduit (newManager, conduitManagerSettings)
 import Control.Monad.Logger (runStdoutLoggingT)
+import           Network.Wai.Middleware.Autohead
+import           Network.Wai.Middleware.Gzip
 
 -- Import all relevant handler modules here.
 import Handler.Home
@@ -37,7 +39,7 @@ makeApplication :: AppConfig DefaultEnv Extra -> IO Application
 makeApplication conf = do
     foundation <- makeFoundation conf
     app <- toWaiAppPlain foundation
-    return $ logWare app
+    return $ gzip def $ autohead $ logWare app
   where
 #ifdef DEVELOPMENT
     logWare = logStdoutDev
