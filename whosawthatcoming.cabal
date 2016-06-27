@@ -4,70 +4,27 @@ license:           BSD3
 license-file:      LICENSE
 author:            Michael Snoyman
 maintainer:        Michael Snoyman
-synopsis:          The greatest Yesod web application ever.
-description:       I'm sure you can say something clever here if you try.
 category:          Web
-stability:         Experimental
-cabal-version:     >= 1.6
+cabal-version:     >= 1.8
 build-type:        Simple
-homepage:          http://whosawthatcoming.yesodweb.com/
-
-Flag dev
-    Description:   Turn on development settings, like auto-reload templates.
-    Default:       False
-
-Flag library-only
-    Description:   Build for use with "yesod devel"
-    Default:       False
+homepage:          http://www.whosawthatcoming.com/
 
 library
-    if flag(library-only)
-        Buildable: True
-    else
-        Buildable: False
-
     exposed-modules: Application
+                     Settings
     other-modules:   Foundation
                      Import
                      Model
-                     Settings
                      Settings.StaticFiles
                      Handler.Home
 
-    ghc-options:   -Wall -threaded -O0
-    cpp-options:   -DDEVELOPMENT
+    ghc-options:   -Wall -O2
 
     extensions: TemplateHaskell
                 QuasiQuotes
                 OverloadedStrings
                 NoImplicitPrelude
                 CPP
-                MultiParamTypeClasses
-                TypeFamilies
-                GADTs
-                GeneralizedNewtypeDeriving
-                FlexibleContexts
-                EmptyDataDecls
-                NoMonomorphismRestriction
-
-executable         whosawthatcoming
-    if flag(library-only)
-        Buildable: False
-
-    if flag(dev)
-        cpp-options:   -DDEVELOPMENT
-        ghc-options:   -Wall -threaded -O0
-    else
-        ghc-options:   -Wall -threaded -O2
-
-    main-is:       main.hs
-
-    extensions: TemplateHaskell
-                QuasiQuotes
-                OverloadedStrings
-                NoImplicitPrelude
-                CPP
-                OverloadedStrings
                 MultiParamTypeClasses
                 TypeFamilies
                 GADTs
@@ -107,22 +64,13 @@ executable         whosawthatcoming
                  , conduit
                  , data-default
                  , monad-logger
-test-suite integration-tests
-    type: exitcode-stdio-1.0
-    main-is:        main.hs
-    hs-source-dirs: tests .
-    ghc-options:     -Wall
-    extensions: TemplateHaskell
-                QuasiQuotes
-                OverloadedStrings
-                NoImplicitPrelude
-                CPP
-                OverloadedStrings
-                MultiParamTypeClasses
-                TypeFamilies
-                GADTs
-                GeneralizedNewtypeDeriving
-                FlexibleContexts
+
+executable         whosawthatcoming
+    ghc-options:   -Wall -threaded -O2
+
+    main-is:       main.hs
+    hs-source-dirs: app
 
     build-depends: base
-                 , yesod-test
+                 , yesod
+                 , whosawthatcoming
