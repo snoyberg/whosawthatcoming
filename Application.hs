@@ -11,11 +11,7 @@ import Yesod.Auth
 import Yesod.Default.Config
 import Yesod.Default.Main
 import Yesod.Default.Handlers
-#if DEVELOPMENT
-import Network.Wai.Middleware.RequestLogger (logStdoutDev)
-#else
-import Network.Wai.Middleware.RequestLogger (logStdout)
-#endif
+import Network.Wai.Middleware.RequestLogger
 import qualified Database.Persist
 import Database.Persist.Sql (runMigration)
 import Network.HTTP.Client.TLS (getGlobalManager)
@@ -42,13 +38,10 @@ makeApplication :: AppConfig DefaultEnv Extra -> IO Application
 makeApplication conf = do
     foundation <- makeFoundation conf
     app <- toWaiAppPlain foundation
+    logWare <- mkRequestLogger def
+      { outputFormat = Apache FromFallback
+      }
     return $ gzip def $ autohead $ logWare app
-  where
-#ifdef DEVELOPMENT
-    logWare = logStdoutDev
-#else
-    logWare = logStdout
-#endif
 
 makeFoundation :: AppConfig DefaultEnv Extra -> IO App
 makeFoundation conf = do
