@@ -52,6 +52,7 @@ library
                  , monad-control
                  , wai-extra
                  , yaml
+                 , aeson
                  , http-conduit
                  , directory
                  , warp

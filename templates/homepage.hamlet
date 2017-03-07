@@ -11,7 +11,7 @@
                 <a href=@{AuthR LogoutR}>Logout
         $nothing
             <p>
-                <a href=@{AuthR LoginR}>Log in to track your predictions.
+                <a href=@{AuthR forwardUrl}>Log in to track your predictions.
 
 <h2>What is this?
 

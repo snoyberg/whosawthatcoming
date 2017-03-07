@@ -17,8 +17,7 @@ import Prelude
 import Yesod
 import Yesod.Static
 import Yesod.Auth
-import Yesod.Auth.BrowserId
-import Yesod.Auth.GoogleEmail
+import Yesod.Auth.GoogleEmail2
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
 import Network.HTTP.Conduit (Manager)
@@ -43,6 +42,7 @@ data App = App
     , connPool :: Database.Persist.PersistConfigPool Settings.PersistConfig -- ^ Database connection pool.
     , httpManager :: Manager
     , persistConfig :: Settings.PersistConfig
+    , appGoogleEmail :: (Text, Text)
     }
 
 -- Set up i18n messages. See the message folder.
@@ -138,7 +138,7 @@ instance YesodAuth App where
                 fmap Just $ insert $ User (credsIdent creds) Nothing
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def, authGoogleEmail]
+    authPlugins app = [uncurry authGoogleEmail (appGoogleEmail app)]
 
     authHttpManager = httpManager
 

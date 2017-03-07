@@ -12,6 +12,7 @@ import Crypto.Hash.SHA512 (hash)
 import qualified Data.ByteString as S
 import Data.Bits (shiftR, (.&.))
 import qualified Data.Text as T
+import Yesod.Auth.GoogleEmail2
 
 predictForm :: Form Prediction
 predictForm token = do

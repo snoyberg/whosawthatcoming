@@ -22,6 +22,9 @@ import Network.HTTP.Conduit (newManager, conduitManagerSettings)
 import Control.Monad.Logger (runStdoutLoggingT)
 import           Network.Wai.Middleware.Autohead
 import           Network.Wai.Middleware.Gzip
+import Data.Aeson (withObject)
+import Data.Yaml (decodeFileEither)
+import Control.Exception (throwIO)
 
 -- Import all relevant handler modules here.
 import Handler.Home
@@ -56,7 +59,17 @@ makeFoundation conf = do
               Database.Persist.applyEnv
     p <- Database.Persist.createPoolConfig (dbconf :: Settings.PersistConfig)
     runStdoutLoggingT $ Database.Persist.runPool dbconf (runMigration migrateAll) p
-    return $ App conf s p manager dbconf
+    googleEmail <- decodeFileEither "config/db/google-email.yml" >>= either throwIO return
+    return $ App conf s p manager dbconf (geClient googleEmail, geSecret googleEmail)
+
+data GoogleEmail = GoogleEmail
+    { geClient :: !Text
+    , geSecret :: !Text
+    }
+instance FromJSON GoogleEmail where
+  parseJSON = withObject "GoogleEmail" $ \o -> GoogleEmail
+    <$> o .: "client-id"
+    <*> o .: "client-secret"
 
 -- for yesod devel
 getApplicationDev :: IO (Int, Application)
