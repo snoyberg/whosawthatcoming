@@ -11,7 +11,6 @@ import Data.Time (getCurrentTime)
 import Crypto.Hash.SHA512 (hash)
 import qualified Data.ByteString as S
 import Data.Bits (shiftR, (.&.))
-import qualified Data.Text as T
 import Yesod.Auth.GoogleEmail2
 
 predictForm :: Form Prediction
@@ -61,7 +60,7 @@ $if not $ null errs
 -- The majority of the code you will write in Yesod lives in these handler
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
-getHomeR :: Handler RepHtml
+getHomeR :: Handler Html
 getHomeR = do
     muser <- maybeAuth
     ((result, formWidget), _) <- runFormPost predictForm
@@ -74,17 +73,17 @@ getHomeR = do
             setTitle "I predict that..."
             $(widgetFile "homepage")
 
-postHomeR :: Handler RepHtml
+postHomeR :: Handler Html
 postHomeR = getHomeR
 
-getPrivateR :: Text -> Handler RepHtml
+getPrivateR :: Text -> Handler Html
 getPrivateR private = do
     Entity _ predict <- runDB $ getBy404 $ UniquePrivate private
     defaultLayout $ do
         setTitle "Private prediction page"
         $(widgetFile "private")
 
-getPublicR :: Text -> Handler RepHtml
+getPublicR :: Text -> Handler Html
 getPublicR public = do
     Entity _ predict <- runDB $ getBy404 $ UniquePublic public
     let Textarea raw = predictionContent predict
@@ -112,9 +111,9 @@ toHex bs0 =
         | w < 10 = w + 48
         | otherwise = w + 87
 
-getMyPredictionsR :: Handler RepHtml
+getMyPredictionsR :: Handler Html
 getMyPredictionsR = do
-    Entity uid user <- requireAuth
+    Entity uid _user <- requireAuth
     predictions <- map entityVal <$> runDB (selectList [PredictionUser ==. Just uid] [Desc PredictionCreated])
     defaultLayout $ do
         setTitle "My Predictions"

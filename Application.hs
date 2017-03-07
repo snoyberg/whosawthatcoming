@@ -18,7 +18,7 @@ import Network.Wai.Middleware.RequestLogger (logStdout)
 #endif
 import qualified Database.Persist
 import Database.Persist.Sql (runMigration)
-import Network.HTTP.Conduit (newManager, conduitManagerSettings)
+import Network.HTTP.Client.TLS (getGlobalManager)
 import Control.Monad.Logger (runStdoutLoggingT)
 import           Network.Wai.Middleware.Autohead
 import           Network.Wai.Middleware.Gzip
@@ -52,7 +52,7 @@ makeApplication conf = do
 
 makeFoundation :: AppConfig DefaultEnv Extra -> IO App
 makeFoundation conf = do
-    manager <- newManager conduitManagerSettings
+    manager <- getGlobalManager
     s <- staticSite
     dbconf <- withYamlEnvironment "config/db/postgresql.yml" (appEnv conf)
               Database.Persist.loadConfig >>=

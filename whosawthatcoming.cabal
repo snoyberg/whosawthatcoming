@@ -54,6 +54,7 @@ library
                  , yaml
                  , aeson
                  , http-conduit
+                 , http-client-tls
                  , directory
                  , warp
 
