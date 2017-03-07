@@ -1,4 +1,6 @@
-config/client_session_key.aes
+config/db/client_session_key.aes
+config/db/*.asc
 *.swp
 /.stack-work/
-kube/whosawthatcoming-postgresql-secret.yaml
+static/tmp/
+yesod-devel/
